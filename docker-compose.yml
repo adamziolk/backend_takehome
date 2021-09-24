@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres:alpine
+    volumes:
+      - ./src/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    environment:
+      - POSTGRES_DB=database
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    command: postgres -c 'max_wal_size=2GB'
+  pipeline:
+    build: .
+    image: marketdial/backend_takehome
+    container_name: pipeline
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    tty: true
