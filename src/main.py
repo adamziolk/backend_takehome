@@ -168,7 +168,9 @@ def get_successful_days():
 	# so only one SellerSuccessfulDays should be returned per seller
 	# however not all sellers have a daily_revenue_target set, so just ignore them
 	# the date objects in the days list should be sorted in ascending order
+	# I know that postgres supports array values...
 	db_cursor.execute('''
+		select ... from ...
 	''')
 
 	return [SellerSuccessfulDays(**row) for row in db_cursor]

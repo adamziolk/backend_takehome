@@ -3,7 +3,7 @@ FROM python:bullseye
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 WORKDIR /app
 RUN apt-get update --fix-missing && \
-	apt-get install -y curl git build-essential libpq-dev && \
+	apt-get install -y curl git build-essential libpq-dev postgresql-client && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
