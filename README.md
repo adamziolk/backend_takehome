@@ -17,7 +17,7 @@ You will likely find these resources useful:
 
 - Documentation for python's `date` type: https://docs.python.org/3/library/datetime.html#date-objects
 - Beam transform reference: https://beam.apache.org/documentation/transforms/python/overview/
-- Beam programming guide (don't read this entire thing, just enough to understand what's going on): https://beam.apache.org/documentation/programming-guide/
+- Beam programming guide (don't read this entire thing, just enough to understand what's going on, such as the "Overview", "PCollections", and "Transforms" sections): https://beam.apache.org/documentation/programming-guide/
 
 ---
 
