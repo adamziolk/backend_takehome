@@ -5,6 +5,15 @@ from datetime import date
 import apache_beam as beam
 from decimal import Decimal
 
+class DateCoder(beam.coders.Coder):
+	def encode(self, d):
+		return d.isoformat().encode('ascii')
+	def decode(self, bs):
+		return date.fromisoformat(bs.decode('ascii'))
+	def is_deterministic(self):
+		return True
+beam.coders.registry.register_coder(date, DateCoder)
+
 def db_connect():
 	db_connection = psycopg2.connect(
 		host='db',
@@ -133,17 +142,11 @@ def construct_pipeline(pipeline):
 	seller_summary_days = (
 		validated_transactions_with_product
 		| 'key by seller_id and day' >> beam.MapTuple(lambda transaction, product: (
-			# beam doesn't currently support simple dates as a primitive type :(
-			# https://beam.apache.org/documentation/programming-guide/#schema-definition
-			(transaction.seller_id, (transaction.date_day.year, transaction.date_day.month, transaction.date_day.day)),
+			(transaction.seller_id, transaction.date_day),
 			product.price * transaction.units_sold,
-		))
+		)).with_output_types(typing.Tuple[typing.Tuple[int, date], float])
 		| 'aggregate' >> beam.CombinePerKey(sum)
-		| 'make seller summaries' >> beam.MapTuple(lambda seller_date, total_revenue: SellerSummary(
-			seller_date[0],
-			date(*seller_date[1]),
-			total_revenue,
-		))
+		| 'make seller summaries' >> beam.MapTuple(lambda seller_date, total_revenue: SellerSummary(*seller_date, total_revenue))
 	)
 
 	validated_transactions = (
