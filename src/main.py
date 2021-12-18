@@ -89,9 +89,6 @@ def construct_pipeline(pipeline):
 		| 'split parse errors' >> beam.ParDo(ProcessErrors()).with_outputs('invalid', main='parsed_transactions')
 	)
 
-	# print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Parsed Transactions $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-	# parsed_transactions | 'print parsed' >> beam.Map(print)
-
 	def query_products_sellers():
 		_db_connection, db_cursor = db_connect()
 
@@ -110,18 +107,6 @@ def construct_pipeline(pipeline):
 	)
 	sellers_map = beam.pvalue.AsDict(products_sellers_collection.sellers_map)
 	products_collection = products_sellers_collection[None]
-
-	# print("$$$$$$$$$$$$$$$$$ Products Sellers Collection ###################")
-	# products_sellers_collection | "count" >> beam.combiners.Count.Globally() | beam.Map(print)
-
-	# print("$$$$$$$$$$$$$$$ Seller Map #########################")
-	# # sellers_map | "print sm" >> beam.Map(print)
-	# sellers_map | "count" >> beam.combiners.Count.Globally() | beam.Map(print)
-
-
-	# print("$$$$$$$$$$$$$$$$$$$ P Collection $$$$$$$$$$$$$$$$$$$$$$$")
-	# # This works
-	# products_collection | "print p collection" >> beam.Map(print)
 
 	def validate_transaction_references(product_id, join_results, sellers_map=None):
 		transactions = join_results['transactions']
@@ -158,17 +143,8 @@ def construct_pipeline(pipeline):
 			sellers_map=sellers_map,
 		)
 		# TODO same as above, need to split Err from correct, possibly even using the same function?
-		# | 'print' >> beam.Map(print)
 		| 'split validation errors' >> beam.ParDo(ProcessErrors()).with_outputs('invalid', main='validated_transactions_with_product')
-		# | 'print' >> beam.Map(print)
-
 	)
-
-	# print("$$$$$$$$$$$$$$$$$$$ Validated transactions with product ##################")
-	# validated_transactions_with_product | "print vtwp" >> beam.Map(print)
-
-	# print("$$$$$$$$$$$$$$$$$$$$$$$$ invalid trans $$$$$$$$$$$$$$$$$$$$")
-	# invalid_transactions | "print" >> beam.Map(print)
 
 	seller_summary_days = (
 		validated_transactions_with_product
@@ -183,13 +159,8 @@ def construct_pipeline(pipeline):
 	validated_transactions = (
 		validated_transactions_with_product
 		# TODO need to change these rows of (transaction, product) into just transaction
-		# | 'print' >> beam.Map(print)
 		| 'remove products' >> beam.Map(lambda record: record[0])
-		# | 'print' >> beam.Map(print)
 	)
-
-	print("$$$$$$$$$$$$$$$$$$$$ validated transaction $$$$$$$$$$$$$$$$$$$$$$$")
-	validated_transactions | "print vt" >> beam.Map(print)
 
 	return validated_transactions, seller_summary_days, invalid_lines, invalid_transactions
 
