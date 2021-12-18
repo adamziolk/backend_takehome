@@ -180,7 +180,18 @@ def get_successful_days():
 	# the date objects in the days list should be sorted in ascending order
 	# I know that postgres supports array values...
 	db_cursor.execute('''
-		select ... from ...
+		SELECT
+			s.id AS seller_id,
+			s.display_name,
+			ARRAY_AGG(ss.date_day ORDER BY ss.date_day ASC) AS days
+
+		FROM
+			seller s
+		JOIN seller_summary ss ON s.id = ss.seller_id
+		WHERE
+			s.daily_revenue_target IS NOT NULL
+			AND ss.total_revenue > s.daily_revenue_target
+		GROUP BY 1, 2
 	''')
 
 	return [SellerSuccessfulDays(**row) for row in db_cursor]
