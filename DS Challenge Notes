@@ -1,0 +1,39 @@
+Question 1:
+
+Step 1: Define the Problem:
+"We want to determine if the placement of Brand Z's candy within Client X's stores is related to the sales revenue associated with Brand Z's candy"
+
+Step 2: Define the Hypothesis:
+H_0: There is no relationship between the placement of the candy and the sales revenue
+H_A: There is a relationship between the placement of the candy and the sales revenue
+
+Step 3: Define the Analysis Criteria
+-Specify the significance level: alpha = 0.05
+-Select the test statistic: Z/t test comparing sample means
+	-Population mean is known
+	-Check sample size > 30
+-Options:
+	-Paired t-test: Compare the results of candy placement within the same store at two time intervalas
+		-Benefits:
+			-Controls for within sample variation
+		-Drawbacks:
+			-Requires more time
+	-Two sample t-test: Compare the results of a set of stores to another set of stores
+		-Benefits:
+			-
+		-Drawbacks:
+			-Difficult to control for natural variation between stores >> mitigated via sampling plan.
+
+Step 4: Define the Data Collection Plan
+-
+
+
+
+Step 5: Collect the Data
+
+Step 6: Analyze the Data
+
+Step 7: Conclusion
+
+
+
