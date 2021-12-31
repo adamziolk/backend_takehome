@@ -1,4 +1,14 @@
 Question 1:
+Assumption: 
+-Initial meeting to explain what the test will look like.  
+-It is conceptual, the data collection hasn't been performed yet
+-Test period was 91 days (Sun - Sun), pre period was 90 days (Sun - Sat)
+
+Needed from client:
+-Timeline -> Paired vs independent tests
+-Estimated effect size -> Dictates power/sample size
+-
+
 
 Step 1: Define the Problem:
 "We want to determine if the placement of Brand Z's candy within Client X's stores is related to the sales revenue associated with Brand Z's candy"
@@ -9,6 +19,8 @@ H_A: There is a relationship between the placement of the candy and the sales re
 
 Step 3: Define the Analysis Criteria
 -Specify the significance level: alpha = 0.05
+	-Probability of Type I error:
+		-i.e. Reality is true (there is no realtionship) - test is false (we detect one anyway)
 -Select the test statistic: Z/t test comparing sample means
 	-Population mean is known
 	-Check sample size > 30
@@ -20,20 +32,54 @@ Step 3: Define the Analysis Criteria
 			-Requires more time
 	-Two sample t-test: Compare the results of a set of stores to another set of stores
 		-Benefits:
-			-
+			-Faster
 		-Drawbacks:
 			-Difficult to control for natural variation between stores >> mitigated via sampling plan.
 
 Step 4: Define the Data Collection Plan
--
+-Define the power: (1-beta) = 0.8
+	-Beta is probability of Type II error:
+		i.e. Reality is false (there is relationship) - test is true (we don't notice it)
+	-(1-Beta) inverts it: Power: Probability of finding a relationship when it exists
+-Calculate the sample size based on the power and estimated effect size.
+-Recommendation:
+	-Estimated effect size: 3%
+	-Standard Deviation: 10% of mean value
+	-Alpha = 0.05
+	-Power = 0.8
+	-Sample size should be ~175 stores
+-Based on Q3: Independent test
+	-Define the number of treatment groups (i.e. placement 1 vs placement 2 vs placement 3...)
+	-Define which stores will go into the treatment vs control
+		-Define a sampling plan: See Q2
+	-Define a timeline
+		-Based on Q3: 90 day prior
+		-Implementation: 28 days
+		-91 days post
+
 
 
 
 Step 5: Collect the Data
+-Record the transactions in a suitable format
+-Must capture:
+	-Candy related sales
+		-Price (assuming uniform currency)
+		-Quanity
+	-By Date
+	-By Store
+
+
 
 Step 6: Analyze the Data
+-Compare the differences in sales
+	-Examine variation within groups:
+		-I.e. in treatment/control group, how much do sales fluctuate normally.
+	-Examine variation between groups:
+		-I.e. how different is treatment group compared to control group
+	-Compare results before and after experiment
 
 Step 7: Conclusion
-
+-Calculate how likely it is to observe results this extreme by random chance.
 
 
