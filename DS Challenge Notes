@@ -7,13 +7,13 @@ Assumption:
 Needed from client:
 -Timeline -> Paired vs independent tests
 -Estimated effect size -> Dictates power/sample size
--
+
 
 
 Step 1: Define the Problem:
 "We want to determine if the placement of Brand Z's candy within Client X's stores is related to the sales revenue associated with Brand Z's candy"
 
-Step 2: Define the Hypothesis:
+Step 2: Define the Hypothesis: Must be falsifiable
 H_0: There is no relationship between the placement of the candy and the sales revenue
 H_A: There is a relationship between the placement of the candy and the sales revenue
 
@@ -21,7 +21,7 @@ Step 3: Define the Analysis Criteria
 -Specify the significance level: alpha = 0.05
 	-Probability of Type I error:
 		-i.e. Reality is true (there is no realtionship) - test is false (we detect one anyway)
--Select the test statistic: Z/t test comparing sample means
+-Select the test statistic: Z/t test comparing difference in sample means
 	-Population mean is known
 	-Check sample size > 30
 -Options:
